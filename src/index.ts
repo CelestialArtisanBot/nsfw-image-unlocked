@@ -114,3 +114,25 @@ generateBtn.addEventListener('click', async () => {
 
   return new Response(html, { headers: { 'Content-Type': 'text/html;charset=UTF-8' } });
 }
+
+
+async function verifyToken(token) {
+  const response = await fetch(
+    "https://api.cloudflare.com/client/v4/accounts/deee1798a610f6c7842da5b3777ef377/tokens/verify",
+    {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json"
+      }
+    }
+  );
+  
+  const data = await response.json();
+  return data;
+}
+
+// Example usage
+verifyToken("nx4Acz2IOgcTIain8EzcA4CVm6MD7Ymcs3UVyHsV")
+  .then(console.log)
+  .catch(console.error);
