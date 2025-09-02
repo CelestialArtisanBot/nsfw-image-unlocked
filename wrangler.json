@@ -1,12 +1,47 @@
 {
-  "compatibility_date": "2025-04-01",
-  "main": "src/index.ts",
   "name": "nsfw-image-unlocked",
+  "main": "src/index.ts",
+  "compatibility_date": "2025-04-01",
+  "compatibility_flags": [
+    "streams_enable_constructors",
+    "wasm_threads",
+    "modules_top_level_await"
+  ],
   "upload_source_maps": true,
+  "type": "javascript",
   "ai": {
     "binding": "AI"
   },
   "observability": {
     "enabled": true
+  },
+  "routes": [
+    "https://your-domain.com/*"
+  ],
+  "triggers": {
+    "crons": [
+      "0 0 * * *"
+    ]
+  },
+  "durable_objects": {
+    "ImageCache": {
+      "class_name": "ImageCache"
+    }
+  },
+  "kv_namespaces": [
+    {
+      "binding": "IMAGE_KV",
+      "id": "your-kv-id"
+    }
+  ],
+  "env": {
+    "production": {
+      "name": "nsfw-image-unlocked-prod",
+      "route": "https://your-production-domain.com/*"
+    },
+    "staging": {
+      "name": "nsfw-image-unlocked-staging",
+      "route": "https://your-staging-domain.com/*"
+    }
   }
 }
